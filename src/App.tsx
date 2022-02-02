@@ -2,23 +2,37 @@ import { WalletAdapterNetwork, WalletNotConnectedError } from '@solana/wallet-ad
 import { ConnectionProvider, WalletProvider, useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { WalletModalProvider, WalletMultiButton, WalletDisconnectButton } from '@solana/wallet-adapter-react-ui';
 import Button from '@mui/material/Button';
+
 import {
     LedgerWalletAdapter,
     PhantomWalletAdapter,
     SlopeWalletAdapter,
     SolflareWalletAdapter,
     SolletExtensionWalletAdapter,
-    SolletWalletAdapter,
+    SolletWalletAdapter,    
     TorusWalletAdapter,
 } from '@solana/wallet-adapter-wallets';
 import { clusterApiUrl, Keypair, PublicKey, SystemProgram, Transaction } from '@solana/web3.js';
-import React, { Children, FC, ReactNode, useMemo, useCallback } from 'react';
+import React, { Children, FC, ReactNode, useMemo, useCallback,useState } from 'react';
+import Mint from './mint';
 
 export const App: FC = () => {
+    const [connect, setconnect] = useState(false);
+    const { connection } = useConnection();
+console.log(connection);
+
+//     if(connection.commitment=="confirmed"){
+//  setconnect(true)
+
+//     }
     return (
-        <Context>
+        <>        <Context>
             <Content />
         </Context>
+<Mint/>
+</>
+
+        
     );
 };
     let phantomWallet: PhantomWalletAdapter 
@@ -56,9 +70,9 @@ const Context: FC<{ children: ReactNode }> = ({ children }) => {
             <WalletProvider  wallets={wallets} autoConnect>
                 <WalletModalProvider >{children}
                 <WalletDisconnectButton />
-                <SendOneLamportToRandomAddress />
-                    
-                </WalletModalProvider>
+                {/* <SendOneLamportToRandomAddress /> */}
+           
+               </WalletModalProvider>
             </WalletProvider>
         </ConnectionProvider>
         
@@ -70,8 +84,8 @@ const Content: FC = () => {
     // console.log(data,"////////////////");
     // console.log(<WalletMultiButton/>);
       phantomWallet.on('connect', () => {
-       let data=   phantomWallet.connect()
-        console.log(data,"hii");
+     //  let data=   phantomWallet.connect()
+        console.log(phantomWallet,"hii");
     });
        phantomWallet.on('disconnect', () => {
         console.log(phantomWallet);
@@ -84,19 +98,25 @@ const Content: FC = () => {
 export const SendOneLamportToRandomAddress: FC = () => {
     const { connection } = useConnection();
     const { publicKey, sendTransaction } = useWallet();
-
+ console.log(connection,"//////////");
+ 
     const onClick = useCallback(async () => {
         if (!publicKey) throw new WalletNotConnectedError();
+        console.log(publicKey);
+        let add= "ECi1C2rYA3ysHcUwKqecHwoToFeauzCadkEiqBdQfzLX"
+        const send = new PublicKey(add)
+        console.log(send.toBase58(),":::::::::::::");
         
         const toAddress = Keypair.generate().publicKey;
 
-        console.log("New Generated Address => ", toAddress.toBase58());
+
+        console.log("New Generated Address => ", toAddress);
         
         const transaction = new Transaction().add(
             SystemProgram.transfer({
                 fromPubkey: publicKey,
-                toPubkey: toAddress,
-                lamports: 1,
+                toPubkey: send,
+                lamports: 10000000,
             })
         );
 
@@ -111,3 +131,5 @@ export const SendOneLamportToRandomAddress: FC = () => {
         </Button>
     );
 };
+
+

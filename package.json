@@ -30,16 +30,20 @@
     },
     "dependencies": {
         "@emotion/react": "^11.0.0",
-        "@mui/material": "^5.3.1",
         "@emotion/styled": "^11.0.0",
         "@mui/icons-material": "^5.0.0",
-       
+        "@mui/material": "^5.3.1",
         "@mui/styled-engine-sc": "^5.3.0",
+        "@solana/buffer-layout": "^3.0.0",
+        "@solana/spl-token": "^0.1.8",
         "@solana/wallet-adapter-base": "^0.9.2",
         "@solana/wallet-adapter-react": "^0.15.2",
         "@solana/wallet-adapter-react-ui": "^0.9.3",
         "@solana/wallet-adapter-wallets": "^0.14.2",
-        "@solana/web3.js": "^1.31.0",
+        "@solana/web3.js": "^1.32.0",
+        "buffer": "^6.0.3",
+        "buffer-layout": "^1.2.2",
+        "layouts": "^3.0.2",
         "react": "^17.0.0",
         "react-dom": "^17.0.0",
         "styled-components": "^5.3.3"
