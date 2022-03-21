@@ -49,7 +49,7 @@ export default function Mint({ }: Props) {
             fromWallet.publicKey,
             null,
             9,
-            splToken.TOKEN_PROGRAM_ID,
+            splToken.TOKEN_PROGRAM_ID,  
         );
         console.log(splToken, "mint");
 
@@ -71,7 +71,7 @@ export default function Mint({ }: Props) {
         // Minting 1 new token to the "fromTokenAccount" account we just returned/created
         await mint.mintTo(
             fromTokenAccount.address,
-            fromWallet.publicKey,
+            fromWallet.publicKey,                       
             [],
             200000000000000,
         );
